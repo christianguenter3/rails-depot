@@ -34,6 +34,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+    debugger
     @product = Product.find(params[:id])
   end
 
