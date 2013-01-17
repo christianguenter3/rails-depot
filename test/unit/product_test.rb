@@ -41,18 +41,28 @@ class ProductTest < ActiveSupport::TestCase
     end
   end  
   
-  def _test_invalid_price(price)
-    @product.price = price
-    assert @product.invalid?
-    assert_equal ["must be greater than or equal to 0.01"],
-                 @product.errors[:price]
-  end
-  
   test "product is not valid without a unique title" do
     product = Product.new(title: products(:ruby).title)
     
     assert product.invalid?
     assert_equal ["has already been taken"], product.errors[:title]
+  end
+  
+  test "products title length maximum is 10" do
+    product = _new_product(title: "Dies ist ein sehr langer Titel")
+    
+    assert product.invalid?
+    assert_equal ["is too long (maximum is 10 characters)"], product.errors[:title]
+    
+    product.title = "Ruby"
+    assert product.valid?
+  end
+  
+  def _test_invalid_price(price)
+    @product.price = price
+    assert @product.invalid?
+    assert_equal ["must be greater than or equal to 0.01"],
+                 @product.errors[:price]
   end
   
   def _new_product(params={})
