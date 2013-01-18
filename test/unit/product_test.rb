@@ -48,16 +48,6 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal ["has already been taken"], product.errors[:title]
   end
   
-  test "products title length maximum is 10" do
-    product = _new_product(title: "Dies ist ein sehr langer Titel")
-    
-    assert product.invalid?
-    assert_equal ["is too long (maximum is 10 characters)"], product.errors[:title]
-    
-    product.title = "Ruby"
-    assert product.valid?
-  end
-  
   def _test_invalid_price(price)
     @product.price = price
     assert @product.invalid?

@@ -52,4 +52,10 @@ class ProductsControllerTest < ActionController::TestCase
 
     assert_redirected_to products_path
   end
+
+  test "should right css" do
+    css_select('a').each do |link|
+      puts link
+    end
+  end
 end
